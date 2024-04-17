@@ -68,7 +68,7 @@ Identification means that, we are only to use the current X to classify the curr
 
 The most famous way to analyze recessions is hidden markov chain and factor method. In general, it is assumed that both economic output and recession are determined by a hidden factor. Once we discover the factor through certain model, we can predict recessions using this factor.
 
-<img src="README.assets/factor_model.jpg" alt="factor_model" style="zoom:22%;" />
+<img src="README.assets/factor_model.jpg" alt="factor_model" style="zoom:15%;" />
 
 In this case, we define the model as follows
 $$
