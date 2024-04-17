@@ -71,19 +71,14 @@ The most famous way to analyze recessions is hidden markov chain and factor meth
 <img src="README.assets/factor_model.jpg" alt="factor_model" style="zoom:15%;" />
 
 In this case, we define the model as follows
-$$
-\begin{align}
 
+$$\begin{align}
 x_{i,t} & = \lambda_i f_t + u_{i,t} \\
-
 u_{i,t} & = c_{i,1} u_{1,t-1} + c_{i,2} u_{i,t-2} + \varepsilon_{i,t} \qquad & \varepsilon_{i,t} \sim N(0, \sigma_i^2) \\
-
 f_t & = a_1 f_{t-1} + a_2 f_{t-2} + \eta_t \qquad & \eta_t \sim N(0, I)\\
-
 y_{t} & = \text{Logistic}(f_t) \\
+\end{align}$$
 
-\end{align}
-$$
 Here $x_{i, t}$ are `[production, income, sales, employees, interest_rate, cpi]`. $f_{i, t}$ is the hidden factor and $u_{i, t}$ is the error term. We assume that $f_{i, t}$ and $u_{i, t}$ follows AR(2) process. And recession indicator $y_{i, t}$ is a function of factor $f_{i, t}$.
 
 ![id_hmm](README.assets/id_hmm.png)
