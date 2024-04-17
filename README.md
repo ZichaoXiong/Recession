@@ -258,7 +258,7 @@ for n in range(12, length - 6):
 
 The dataset is split as follows:
 
-* 0-399: Test set;
+* 0-399: Training set;
 * 400-499: Validation set;
 * 500-593: Test set.
 
