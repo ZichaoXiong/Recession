@@ -45,9 +45,9 @@ The six dependent variables can be plotted as follows, while the gray regions de
 ![econ_plot](README.assets/econ_plot.png)
 
 Next we differentiate the variables in the log form so that it reflects some kind of difference over time.
-$$
-\mathrm{d}\ln x_{i, t, p} = \ln x_{i, t} - \ln x_{i, t-p}
-$$
+
+$$\mathrm{d}\ln x_{i, t, p} = \ln x_{i, t} - \ln x_{i, t-p}$$
+
 Here $i$ indicates production, income, sales and so on. $t$ is the current time and $p$ is the lag that takes the value of 1, 3, 6 or 12.
 
 ### 1.3 Split Training set and Test Set
