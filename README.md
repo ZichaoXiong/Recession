@@ -85,35 +85,17 @@ Here $x_{i, t}$ are `[production, income, sales, employees, interest_rate, cpi]`
 
 The identification accuracy of factor model is 0.8913.
 
-## 2.2 Mechine Learning Method
+### 2.2 Machine Learning Method
 
-#### 2.2.1 All Feature
+We apply what we have learned in this course to identify recessions:
 
-First we don't do any feature selection and just throw all the data into models. We store the scores as `identification_score_unselected`
+1. Use all features;
+2. Extract features by PCA;
+3. Use L1-norm logistic regression to select features;
 
-#### 2.2.2 Feature Extraction (PCA)
+But all these methods have certain drawbacks, they cannot give a very robust results in different situations (high variance).
 
-In previous lessons, we learned ways to extract new variables from the original features. The most common one is PCA. We select the features such that the total explained variance is over 80% (5 components) and store the scores of PCA as `identification_score_pca`.
-
-We think that PCA has two drawbacks:
-
-1. The new data has less economic meanings and are harder to understand intuitively;
-
-2. This method is unsupervised so it may ignore the y variable.
-
-#### 2.2.3 Feature Selection (L1 Norm LR Feature Selection)
-
-If we prefer to preserve the original data meaning, what we should do is feature selection. A common approach is to select features based on sparsity of L1-norm regression. Here we decide to choose no more than 12 features to identify recessions.
-
-<img src="README.assets/id_lr.png" alt="id_lr" style="zoom:72%;" />
-
-The selected features are:  `['dln_production_1m' 'dln_production_3m' 'dln_income_3m' 'dln_income_6m' 'dln_sales_3m' 'dln_sales_6m' 'dln_sales_12m' 'dln_employees_1m' 'dln_employees_3m' 'dln_cpi_3m' 'dln_cpi_6m']`. And we store the results as `identification_score_l1_lr`
-
-#### 2.2.4 Feature Selection (Semi-auto Method)
-
-One question for L1 norm LR is why the features selected via LR can be applied to other machine learning methods (e.g. SVM or DT). We also find a large imbalance in the features selected by this method, with too many sales related features selected, but no interest related features.
-
-Moro et al. (2014) use a semi-auto feature selection method. It is called semi-automatic because this method requires first grouping features using intuition, and then for each group various machine learning methods can be applied to select features. The process is given as follows:
+Luckily, we read a paper about **Semi-auto Method** (Moro et al., 2014) which can solve the problems. It is called semi-automatic because this method requires first grouping features using intuition, and then for each group various machine learning methods can be applied to select features. The process is given as follows:
 
 <img src="README.assets/semiauto_step_1.jpg" alt="semiauto_step_1" style="zoom:22%;" />
 
@@ -147,7 +129,7 @@ label = sel.first_select(grouped_X_columns)
 group_SemiautoFeatureSelection = sel.second_select(X_train, y_train, label)
 ```
 
-### 2.4 Comparison
+### 2.3 Comparison
 
 | feature_type | unselected | unselected | l1_lr    | l1_lr    | semiauto | semiauto |
 | ------------ | ---------- | ---------- | -------- | -------- | -------- | -------- |
@@ -299,24 +281,37 @@ In this project, we use a variety of methods to identify and predict recessions.
 
 Such a project could be further developed in the future. Hyper-parameters can be chosen more carefully (i.e., using 18 months data to predict recession in 3 months) to get better scores. Also it might be possible to build more complex neural network models that can recognize recession patterns by inputting single variable economics plots.
 
-## Appendix: Indian Joke about Weather
+## Appendix: Joke about Weather
 
 > Fall was upon a remote reservation when the Indian tribe asked their new Chief what the coming winter was going to be like. The modern day Chief had never been taught the secrets of the ancients. When he looked at the sky he couldn't tell what the winter was going to be like.
-> 
+>
 > Better safe than sorry, he said to himself and told his tribe that the winter was indeed expected to be cold and that the members of the village should stock up on firewood to be prepared.
-> 
+>
 > After several days, our modern Chief got an idea. He went to the phone booth, called the National Weather Service and asked, "Is the coming winter going to be cold?"
-> 
+>
 > "It looks like this winter is going to be quite cold," the meteorologist at the weather service responded.
-> 
->So the Chief went back to his people and told them to collect even more firewood in order to be prepared. A week later he called the National Weather Service again. "Does it still look like it is going to be a very cold winter?"
+>
+> So the Chief went back to his people and told them to collect even more firewood in order to be prepared. A week later he called the National Weather Service again. "Does it still look like it is going to be a very cold winter?"
 >
 > "Yes," the man at National Weather Service again replied, "It's going to be a very cold winter."
-> 
+>
 > The Chief again went back to his people and ordered them to collect every scrap of firewood they could find. Two weeks later the Chief called the National Weather Service again. "Are you absolutely sure that the winter is going to be very cold?"
-> 
+>
 > "Absolutely," the man replied. "It's looking more and more like it is going to be one of the coldest winters ever."
-> 
+>
 > "How can you be so sure?" the Chief asked.
-> 
+>
 > The weatherman replied, "The Indians are collecting firewood like crazy."
+>
+>  
+>
+> 印第安人来问他们的酋长，“今年冬天冷不冷？”酋长也吃不准，但也不好直说不知道，就说：“肯定很冷，大家要多准备过冬用的劈柴。”于是大家就都去准备劈柴。 
+>
+> 酋长是个认真负责的人。一个星期之后，他跑到电话亭里打电话给国家气象服务中心，问：“今年冬天冷不冷？”气象中心的人说：“冷得很。”
+>
+> 酋长这才放心，回来后又通知了他的子民一遍：“要多准备柴火过冬。”又过了一星期，酋长有点不放心，又给气象中心打电话，被告知：“非常非常冷。”
+>
+> 酋长再次通知子民加大准备柴火的力度。两个星期后，酋长又打电话，被告知：“非常非常非常冷。”酋长急忙通知子民要把收集柴火当头等大事来抓，尽一切努力收集柴火。
+>
+> 两个星期以后，酋长再次打电话，气象中心的人用极其肯定的语气说：“可以肯定地说，今年的冬天将是有史以来最冷的冬天，因为我们看见印第安人正疯狂地收集柴火。“
+
