@@ -287,6 +287,8 @@ Such a project could be further developed in the future. Hyper-parameters can be
 
 ## Appendix: Joke about Weather
 
+We include this joke because we think doing regressions on economic data is very similar with this joke.
+
 > Fall was upon a remote reservation when the Indian tribe asked their new Chief what the coming winter was going to be like. The modern day Chief had never been taught the secrets of the ancients. When he looked at the sky he couldn't tell what the winter was going to be like.
 >
 > Better safe than sorry, he said to himself and told his tribe that the winter was indeed expected to be cold and that the members of the village should stock up on firewood to be prepared.
