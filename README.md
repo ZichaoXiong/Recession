@@ -14,8 +14,7 @@ To accomplish this prediction, scientists usually assume that what has happened 
 
 ### 1.2 Read Data from FRED
 
-[Federal Reserve Economic Data](https://fred.stlouisfed.org/) (Fred) offers a lot of economic data which can be easily read by python. We picked six independent variables (X) and one dependent binary variable (y). The code for reading the data from FRED is shown [here](Recession.ipynb#read_data).
-
+[Federal Reserve Economic Data](https://fred.stlouisfed.org/) (Fred) offers a lot of economic data which can be easily read by python. We picked six independent variables (X) and one dependent binary variable (y).
 
 ```python
 start = '1950-01-01'
