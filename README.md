@@ -71,7 +71,7 @@ The most famous way to analyze recessions is hidden markov chain and factor meth
 
 <img src="graph/factor_model.jpg" alt="factor_model" style="zoom:15%;" />
 
-In this case, we define the model as follows
+In this case, we define the model as follows:
 
 $$\begin{align}
 x_{i,t} & = \lambda_i f_t + u_{i,t} \\
