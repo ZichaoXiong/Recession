@@ -212,8 +212,50 @@ class SemiautoFeatureSelection():
 
         return needed_label
     
-    def get(self):
-        return self.select_auc_q,self.select_auc_qi
+    def forward_selection(self,group_label,X_train,y_train,X_valid,y_valid):
+
+        label={}
+        for idx,clf in enumerate(self.classifiers):
+            clf_label=group_label[clf]
+            X_clf_train=X_train.loc[:,clf_label]
+            X_clf_valid=X_valid.loc[:,clf_label]
+
+            variate=set(clf_label)
+
+            selected=[]
+            cur_score, best_score=0,0
+            while variate:
+                variate_auc=[]
+                for var in variate:
+                    selected.append(var)
+                    if len(selected)==1:
+                        clf_=clone(clf).fit(X_clf_train[selected[0]].values.reshape(-1,1),y_train)
+                        probs=clf_.predict_proba(X_valid[selected[0]].values.reshape(-1,1))[:,1]
+                        auc=roc_auc_score(y_valid,probs)
+                        variate_auc.append((auc,var))
+                        selected.remove(var)
+
+                    else:
+                        clf_=clone(clf).fit(X_clf_train[selected],y_train)
+                        probs=clf_.predict_proba(X_clf_valid[selected])[:,1]
+                        auc=roc_auc_score(y_valid,probs)
+                        variate_auc.append((auc,var))
+                        selected.remove(var)
+
+                variate_auc.sort(reverse=True)
+                best_score, best_var=variate_auc.pop()
+                if cur_score<best_score:
+                    
+                    variate.remove(best_var)
+                    selected.append(best_var)
+                    cur_score=best_score
+
+                else:
+                    break
+
+            label[clf]=selected
+
+        return label
     
 
 # The following code is for conventional L1 LR feature selections
