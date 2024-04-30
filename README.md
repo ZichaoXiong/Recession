@@ -14,7 +14,8 @@ To accomplish this prediction, scientists usually assume that what has happened 
 
 ### 1.2 Read Data from FRED
 
-[Federal Reserve Economic Data](https://fred.stlouisfed.org/) (Fred) offers a lot of economic data which can be easily read by python. We picked six independent variables (X) and one dependent binary variable (y). 
+[Federal Reserve Economic Data](https://fred.stlouisfed.org/) (Fred) offers a lot of economic data which can be easily read by python. We picked six independent variables (X) and one dependent binary variable (y).
+
 
 ```python
 start = '1950-01-01'
@@ -42,7 +43,7 @@ After converting the series into dataframe, the dataset will look like the follo
 
 The six dependent variables can be plotted as follows, while the gray regions denote recession period (when recession == 1):
 
-![econ_plot](README.assets/econ_plot.png)
+![econ_plot](graph/econ_plot.png)
 
 Next we differentiate the variables in the log form so that it reflects some kind of difference over time.
 
@@ -68,7 +69,7 @@ Identification means that, we are only to use the current X to classify the curr
 
 The most famous way to analyze recessions is hidden markov chain and factor method. In general, it is assumed that both economic output and recession are determined by a hidden factor. Once we discover the factor through certain model, we can predict recessions using this factor.
 
-<img src="README.assets/factor_model.jpg" alt="factor_model" style="zoom:15%;" />
+<img src="graph/factor_model.jpg" alt="factor_model" style="zoom:15%;" />
 
 In this case, we define the model as follows
 
@@ -81,7 +82,7 @@ y_{t} & = \text{Logistic}(f_t) \\
 
 Here $x_{i, t}$ are `[production, income, sales, employees, interest_rate, cpi]`. $f_{i, t}$ is the hidden factor and $u_{i, t}$ is the error term. We assume that $f_{i, t}$ and $u_{i, t}$ follows AR(2) process. And recession indicator $y_{i, t}$ is a function of factor $f_{i, t}$.
 
-![id_hmm](README.assets/id_hmm.png)
+![id_hmm](graph/id_hmm.png)
 
 The identification accuracy of factor model is 0.8913.
 
@@ -97,11 +98,11 @@ But all these methods have certain drawbacks, they cannot give a very robust res
 
 Luckily, we read a paper about **Semi-auto Method** (Moro et al., 2014) which can solve the problems. It is called semi-automatic because this method requires first grouping features using intuition, and then for each group various machine learning methods can be applied to select features. The process is given as follows:
 
-<img src="README.assets/semiauto_step_1.jpg" alt="semiauto_step_1" style="zoom:22%;" />
+<img src="graph/semiauto_step_1.jpg" alt="semiauto_step_1" style="zoom:22%;" />
 
-![semiauto_step_2](README.assets/semiauto_step_2.jpg)
+![semiauto_step_2](graph/semiauto_step_2.jpg)
 
-![semiauto_step_3](README.assets/semiauto_step_3.jpg)
+![semiauto_step_3](graph/semiauto_step_3.jpg)
 
 ```python
 clf1 = LogisticRegression(penalty='l2', 
@@ -138,9 +139,9 @@ group_SemiautoFeatureSelection = sel.second_select(X_train, y_train, label)
 | svm          | 0.953704   | 0.973980   | 0.949074 | 0.984184 | 0.953704 | 0.979719 |
 | rf           | 0.953704   | 0.965051   | 0.953704 | 0.972959 | 0.962963 | 0.956378 |
 
-![id_accuracy](README.assets/id_accuracy.png)
+![id_accuracy](graph/id_accuracy.png)
 
-![id_auc](README.assets/id_auc.png)
+![id_auc](graph/id_auc.png)
 
 We find the following characteristics:
 
@@ -188,9 +189,9 @@ Notes that because hmm performs the worst in previous identification problems, w
 
 ### 3.4 Comparison
 
-![pr_accuracy](README.assets/pr_accuracy.png)
+![pr_accuracy](graph/pr_accuracy.png)
 
-![pr_auc](README.assets/pr_auc.png)
+![pr_auc](graph/pr_auc.png)
 
 Now we find the advantage of the semi-auto method:
 
@@ -234,7 +235,7 @@ for n in range(12, length - 6):
     plt.close()
 ```
 
-![cnn_plot](README.assets/cnn_plot.png)
+![cnn_plot](graph/cnn_plot.png)
 
 ### 4.2 Split Training Validation and Test Set
 
@@ -258,7 +259,7 @@ mnist_test = ds_train.skip(500)
 
 The neural net work is set up as follows:
 
-![cnn_struc](README.assets/cnn_struc.jpg)
+![cnn_struc](graph/cnn_struc.jpg)
 
 
 

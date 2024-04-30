@@ -18,7 +18,21 @@ from sklearn.metrics import roc_auc_score
 
 
 def lr_search(X_train, y_train, X_test, y_test, std = True, printing = False):
+    """
+    Parameters
+    ----------
+    X_train, y_train, X_test, y_test : np.array or pd.DataFrame
+        The dataset that you are working with
+    std : Boolean
+        Whether you have to standardize the data or not
+    printing : Boolean
+        Whether you want to print the results in python cells or not
 
+    Returns
+    -------
+    score_lr, roc_auc_lr : float
+        The accuracy and ROC AUC score of the model
+    """
     #Use grid search for finding optimal hyperparameters for LR method
     if std:
         pipe_LR = make_pipeline(StandardScaler(),
@@ -27,9 +41,7 @@ def lr_search(X_train, y_train, X_test, y_test, std = True, printing = False):
         pipe_LR = make_pipeline(LogisticRegression(random_state=1))
                         
     param_range = [0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]
-    # solver_range=["newton-cg","lbfgs","liblinear","sag","saga"]
     solver_range=["newton-cg","lbfgs","liblinear"]
-    # class_range=["ovr","multinomial","auto"]
 
     param_grid = [{'logisticregression__C': param_range, 
                 'logisticregression__solver': solver_range}]
@@ -54,7 +66,21 @@ def lr_search(X_train, y_train, X_test, y_test, std = True, printing = False):
 
 
 def svm_search(X_train, y_train, X_test, y_test, std = True, printing = False):
+    """
+    Parameters
+    ----------
+    X_train, y_train, X_test, y_test : np.array or pd.DataFrame
+        The dataset that you are working with
+    std : Boolean
+        Whether you have to standardize the data or not
+    printing : Boolean
+        Whether you want to print the results in python cells or not
 
+    Returns
+    -------
+    score_lr, roc_auc_lr : float
+        The accuracy and ROC AUC score of the model
+    """
     if std:
         pipe_svm = make_pipeline(StandardScaler(),
                         SVC(random_state=1,probability=True))
@@ -89,7 +115,21 @@ def svm_search(X_train, y_train, X_test, y_test, std = True, printing = False):
 
 
 def rf_search(X_train,y_train, X_test, y_test, std = True, printing = False):
+    """
+    Parameters
+    ----------
+    X_train, y_train, X_test, y_test : np.array or pd.DataFrame
+        The dataset that you are working with
+    std : Boolean
+        Whether you have to standardize the data or not
+    printing : Boolean
+        Whether you want to print the results in python cells or not
 
+    Returns
+    -------
+    score_lr, roc_auc_lr : float
+        The accuracy and ROC AUC score of the model
+    """
     if std:
         pipe_rf = make_pipeline(StandardScaler(),
                         RandomForestClassifier(random_state=1))
@@ -122,7 +162,21 @@ def rf_search(X_train,y_train, X_test, y_test, std = True, printing = False):
     return score_rf, roc_auc_rf
 
 def multi_search(X_train, y_train, X_test, y_test, std = True, feature_type = 'name'):
+    """
+    Parameters
+    ----------
+    X_train, y_train, X_test, y_test : np.array or pd.DataFrame
+        The dataset that you are working with
+    std : Boolean
+        Whether you have to standardize the data or not
+    feature_type : str
+        The method of feature selection
 
+    Returns
+    -------
+    df: pd.DataFrame
+        The accuracy and ROC AUC score of different models shown in a DataFrame
+    """
     accuracy_lr, roc_auc_lr = lr_search(X_train, y_train, X_test, y_test, std)
     accuracy_svm, roc_auc_svm = svm_search(X_train, y_train, X_test, y_test, std)
     accuracy_rf, roc_auc_rf = rf_search(X_train, y_train, X_test, y_test, std)
