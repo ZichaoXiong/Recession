@@ -83,7 +83,7 @@ Here $x_{i, t}$ are `[production, income, sales, employees, interest_rate, cpi]`
 
 ![id_hmm](graph/id_hmm.png)
 
-The identification accuracy of factor model is 0.8913.
+The identification accuracy of factor model is 0.9444. It is a really nice performance but requires training the model each time a new data is available. We hope to develope a more once-and-for-all method of identifying recessions.
 
 ### 2.2 Machine Learning Method
 
@@ -145,7 +145,6 @@ group_SemiautoFeatureSelection = sel.second_select(X_train, y_train, label)
 We find the following characteristics:
 
 * All machine learning method can do better than 90% accuracy and ROC AUC, indicating that identification is easy for machine learning.
-* All machine learning performs better than hidden markov chain.
 * We do not observe obvious difference between different feature selection methods or ML methods.
 
 In the next chapter, we will move on to the prediction problem.
