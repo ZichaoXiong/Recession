@@ -270,7 +270,7 @@ We run 10 epochs and get a validation accuracy of 0.91. In the test set the accu
 In this project, we use a variety of methods to identify and predict recessions.
 
 * In identification part:
-  * The traditional Hidden Markov Chain Factor Model approach shows an accuracy less than 90%.
+  * The traditional Hidden Markov Chain Factor Model approach shows an accuracy over 90%, but requires re-training the model each time a new data is included.
   * The machine learning approach can achieve an accuracy and ROC AUC of over 90%.
   * Different machine learning methods do not seem different from each other.
 * In prediction part:
