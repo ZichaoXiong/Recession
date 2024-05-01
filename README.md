@@ -263,7 +263,7 @@ The neural net work is set up as follows:
 
 ### 4.4 Train NN
 
-We run 10 epochs and get a validation accuracy of 0.91. In the test set the accuracy is about 0.86.
+We run 10 epochs and get a validation accuracy of 0.90. In the test set the accuracy is about 0.78.
 
 ## 5. Conclusion
 
