@@ -16,6 +16,14 @@ To accomplish this prediction, scientists usually assume that what has happened 
 
 [Federal Reserve Economic Data](https://fred.stlouisfed.org/) (Fred) offers a lot of economic data which can be easily read by python. We picked six independent variables (X) and one dependent binary variable (y).
 
+1. `'IPMAN'`: Industrial production of manufacturing;
+2. `'W875RX1'`: Real personal income;
+3. `'CMRMTSPL'`: Real manufacturing and trade industries sales;
+4. `'PAYEMS'`: Total number of employees;
+5. `'FEDFUNDS'`: Federal funds effective interest rate;
+6. `'CORESTICKM159SFRBATL'`: Consumer price index less food and energy;
+7. `'USREC'`: (Target) Binary variable indicating whether America is in a recession or not.
+
 ```python
 start = '1950-01-01'
 end = '2023-12-01'
@@ -80,6 +88,25 @@ y_{t} & = \text{Logistic}(f_t) \\
 \end{align}$$
 
 Here $x_{i, t}$ are `[production, income, sales, employees, interest_rate, cpi]`. $f_{i, t}$ is the hidden factor and $u_{i, t}$ is the error term. We assume that $f_{i, t}$ and $u_{i, t}$ follows AR(2) process. And recession indicator $y_{i, t}$ is a function of factor $f_{i, t}$.
+
+We do the identification in the following steps:
+
+1. Use all the data to train the model and generate $f_t$;
+2. Train the logistic regression model using $f_t$ up to 2005-12;
+3. Predict $y_t$ by the logistic regression and $f_t$ after 2006-01.
+
+The relationship between $x_{i, t}$ and $f_t$ is as follows:
+
+|                                 |    coef | std err |       z | P>\|z\| | [0.025 | 0.975] |
+| ------------------------------- | ------: | ------: | ------: | ------: | -----: | -----: |
+| loading.f1.dln_production_1m    | -0.0114 |   0.001 | -22.497 |   0.000 | -0.012 | -0.010 |
+| loading.f1.dln_income_1m        | -0.0036 |   0.000 |  -8.973 |   0.000 | -0.004 | -0.003 |
+| loading.f1.dln_sales_1m         | -0.0081 |   0.000 | -18.711 |   0.000 | -0.009 | -0.007 |
+| loading.f1.dln_employees_1m     | -0.0050 |   0.000 | -17.683 |   0.000 | -0.006 | -0.004 |
+| loading.f1.dln_interest_rate_1m | -0.0852 |   0.006 | -14.719 |   0.000 | -0.097 | -0.074 |
+| loading.f1.dln_cpi_1m           | -0.0045 |   0.003 |  -1.705 |   0.088 | -0.010 |  0.001 |
+
+And we plot $f_t$ and $y_t$:
 
 ![id_hmm](graph/id_hmm.png)
 
