@@ -14,7 +14,7 @@ To accomplish this prediction, scientists usually assume that what has happened 
 
 ### 1.2 Read Data from FRED
 
-[Federal Reserve Economic Data](https://fred.stlouisfed.org/) (Fred) offers a lot of economic data which can be easily read by python. We picked six independent variables (X) and one dependent binary variable (y).
+[Federal Reserve Economic Data](https://fred.stlouisfed.org/) (Fred) offers a lot of economic data which can be easily read by python. We picked six independent variables (`X`) and one dependent binary variable (`y`).
 
 1. `'IPMAN'`: Industrial production of manufacturing;
 2. `'W875RX1'`: Real personal income;
