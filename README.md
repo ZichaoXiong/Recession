@@ -114,6 +114,8 @@ The identification accuracy of factor model is 0.9444. It is a really nice perfo
 
 ### 2.2 Machine Learning Method
 
+We use the logistic regression (LR), support vector machine (SVM), and random forest (RF) to make identification. And also we try different ways to select feature.
+
 #### 2.2.1 All Feature
 
 First we don't do any feature selection and just throw all the data into models. We store the scores as `identification_score_unselected`
