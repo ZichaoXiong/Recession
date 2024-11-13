@@ -296,13 +296,12 @@ The dataset is split as follows:
 * 500-593: Test set.
 
 ```python
-ds_train = ds_images_labels.shuffle(buffer_size=100,
+ds = ds_images_labels.shuffle(buffer_size=100,
                                   reshuffle_each_iteration=False)
 
-mnist_train_all = ds_train.take(500)
-mnist_valid = mnist_train_all.skip(400).batch(40)
-mnist_train = mnist_train_all.take(100).batch(40)
-mnist_test = ds_train.skip(500)
+ds_valid = ds.take(500).skip(400).batch(40)
+ds_train = ds.take(500).take(100).batch(40)
+ds_test = ds.skip(500)
 ```
 
 ### 4.3 Set Neural Network
