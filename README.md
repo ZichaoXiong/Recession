@@ -114,13 +114,37 @@ The identification accuracy of factor model is 0.9444. It is a really nice perfo
 
 ### 2.2 Machine Learning Method
 
+#### 2.2.1 All Feature
+
+First we don't do any feature selection and just throw all the data into models. We store the scores as `identification_score_unselected`
+
+#### 2.2.2 Feature Extraction (PCA)
+
+In previous lessons, we learned ways to extract new variables from the original features. The most common one is PCA. We select the features such that the total explained variance is over 80% (5 components) and store the scores of PCA as `identification_score_pca`.
+
+We think that PCA has two drawbacks:
+
+1. The new data has less economic meanings and are harder to understand intuitively;
+
+2. This method is unsupervised so it may ignore the `y` variable.
+
+#### 2.2.3 Feature Selection (L1 Norm LR Feature Selection)
+
+If we prefer to preserve the original data meaning, what we should do is feature selection. A common approach is to select features based on sparsity of L1-norm regression. Here we decide to choose no more than 12 features to identify recessions.
+
+<img src="graph/id_lr.png" alt="id_lr" style="zoom:72%;" />
+
+The selected features are:  `['dln_production_1m' 'dln_production_3m' 'dln_income_3m' 'dln_income_6m' 'dln_sales_3m' 'dln_sales_6m' 'dln_sales_12m' 'dln_employees_1m' 'dln_employees_3m' 'dln_cpi_3m' 'dln_cpi_6m']`. And we store the results as `identification_score_l1_lr`
+
+#### 2.2.4 Feature Selection (Semi-auto Method)
+
 We apply what we have learned in this course to identify recessions:
 
 1. Use all features;
 2. Extract features by PCA;
 3. Use L1-norm logistic regression to select features;
 
-But all these methods have certain drawbacks, they cannot give a very robust results in different situations (high variance).
+One question for L1 norm LR is why the features selected via LR can be applied to other machine learning methods (e.g. SVM or DT). We also find a large imbalance in the features selected by this method, with too many sales related features selected, but no interest related features.
 
 Luckily, we read a paper about **Semi-auto Method** (Moro et al., 2014) which can solve the problems. It is called semi-automatic because this method requires first grouping features using intuition, and then for each group various machine learning methods can be applied to select features. The process is given as follows:
 
