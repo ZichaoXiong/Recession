@@ -126,8 +126,7 @@ In previous lessons, we learned ways to extract new variables from the original 
 
 We think that PCA has two drawbacks:
 
-1. The new data has less economic meanings and are harder to understand intuitively;
-
+1. The new data has less economic meanings and is harder to understand intuitively;
 2. This method is unsupervised so it may ignore the `y` variable.
 
 #### 2.2.3 Feature Selection (L1 Norm LR Feature Selection)
