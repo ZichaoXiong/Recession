@@ -327,7 +327,7 @@ In this project, we use a variety of methods to identify and predict recessions.
 * In prediction part:
   * By using a similar approach, we can predict recession in six months with an accuracy of around 85%.
   * In particular, semi-auto feature selection performs best in different scenarios.
-  * If we believe that economic patterns can be read from graphs, NN gives us an accuracy of 86%.
+  * If we believe that economic patterns can be read from graphs, NN gives us an accuracy of 78%.
 
 Such a project could be further developed in the future. Hyper-parameters can be chosen more carefully (i.e., using 18 months data to predict recession in 3 months) to get better scores. Also it might be possible to build more complex neural network models that can recognize recession patterns by inputting single variable economics plots.
 
