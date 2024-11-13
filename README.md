@@ -235,7 +235,7 @@ As we have done before, we will predict recessions by 4 steps:
 3. Use L1-LR to select features;
 4. Use semi-auto method to select feature.
 
-Notes that because hmm performs the worst in previous identification problems, we are not to use it as a way to predict recessions any more.
+Notes that because HMM is based on AR process and will converge to stationary distribution in the long run, we are not to use it as a way to predict recessions any more.
 
 ### 3.4 Comparison
 
